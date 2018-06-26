@@ -1,0 +1,19 @@
+#URL
+URL: 'https://www.baidu.com'
+
+
+# web types
+web_types:
+     firefox: webdriver.Firefox
+     chrome: webdriver.Chrome
+
+
+
+
+# log_format
+log:
+   file_name: pps-api
+   backup: 5
+   console_level: DEBUG
+   file_level: DEBUG
+   pattern: '%(asctime)s [%(filename)s->%(module)s->%(funcName)s] %(levelname)s : %(message)s'

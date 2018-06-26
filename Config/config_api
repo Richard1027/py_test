@@ -1,0 +1,110 @@
+# 测试URL
+URL : 'http://192.168.1.221:8080'
+#URL : 'http://127.0.0.1:9009'
+
+# account
+account:
+      modify_passwd: '/account/modify/password'
+
+# enum
+enum: '/res/enum/'
+enum_error: '/res/enum/error'
+
+# errorcode enum
+errorcode:
+   9002: "State error"
+   9003: "Parameter is ilegal"
+   9004: "Parameter is empty"
+   9005: "There is already exists"
+   9006: "The query result does not exists"
+   9010: "There is Error of Account and Password"
+   9500: "build exist"
+   9999: "Server Error"
+   0000: "Success"
+
+# staff
+staff:
+    build: '/staff/build'
+    delete: '/staff/delete'
+    list: '/staff/list'
+    modify: '/staff/modify'
+
+# errorType
+errortype:
+    build: '/errortype/build'
+    builds: '/errortype/builds'
+    delete: '/errortype/delete'
+    list: '/errortype/list'
+    listby: '/errortype/listby'
+    load: '/errortype/load'
+    modify: '/errortype/modify'
+
+# sample
+sample:
+   build: '/sample/build'
+   delete: '/sample/delete'
+   list: '/sample/list'
+   modify: '/sample/modify'
+
+# testOption
+testoption:
+    build: '/testOption/build'
+    delete: '/testOption/delete'
+    list: '/testOption/list'
+    modify: '/testOption/modify'
+
+# testunit
+testunit:
+    build: '/testUnit/build'
+    delete: '/testUnit/delete'
+    list: '/testUnit/list'
+    modify: '/testUnit/modify'
+
+# testRecord
+testRecord:
+    build: '/testRecord/build'
+    delete: '/testRecord/delete'
+    list: '/testRecord/list'
+    modify: '/testRecord/modify'
+
+# testRepaired
+testRepaired:
+    build: '/repairFeedback/build'
+    delete: '/repairFeedback/delete'
+    list: '/repairFeedback/list'
+    modify: 'repairFeedback/modify'
+
+# test option data
+options:
+    op1: "os test"
+    op2: "battery test"
+    op3: "keyboard test"
+
+
+# 日志
+log:
+   file_name: pps-api
+   backup: 5
+   console_level: DEBUG
+   file_level: DEBUG
+   pattern: '%(asctime)s [%(filename)s->%(module)s->%(funcName)s] %(levelname)s : %(message)s'
+
+
+# 学生信息
+Lucy:
+    weight: '40 kg'
+    age: 22
+    job: &value 'dancer'
+
+Lily:
+    Weight: '45 kg'
+    age: 22
+    job: *value
+
+# connect  mysql
+Mysql:
+    host: 192.168.1.220
+    port: 3306
+    user: root
+    passwd: mysqladmin
+    dbname: pps
