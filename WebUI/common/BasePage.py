@@ -10,10 +10,10 @@ from selenium.webdriver.support.select import Select
 import os
 import time
 from units.config import Pictures_Path
+from units.crack import build_vector
 import sys
 sys.path.append(os.getcwd())
 from .browser import Browser
-
 
 
 class BasePage(Browser):
@@ -242,3 +242,10 @@ class BasePage(Browser):
             return result
         except ElementNotSelectableException:
             print(u"%s page can not find %s element" % (self, loc))
+
+    # 获取验证码图片
+    def get_crack(self, element, filepath):
+        crack = build_vector(filepath, element)
+        crack_str = crack.store_letters()
+        return crack_str
+

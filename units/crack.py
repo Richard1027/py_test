@@ -1,3 +1,14 @@
+# --*-- coding:utf8 --*--
+
+"""
+-- author： Richarc --
+
+实现思路：
+1、在vectorCompare类中，计算矢量图和字符
+2、在build_vector中，截取界面指定元素的图片，获取元素矢量信息，在imageset中获取匹配字符串
+
+"""
+
 from PIL import Image
 import os
 import math
@@ -19,23 +30,33 @@ class vectorCompare:
         return topvalue / (self.magnitude(concordance1) * self.magnitude(concordance2))
 
 
-
 class build_vector:
 
-    def __init__(self, captcha):
+    # 在初始化函数中， 将屏幕截图更换为验证码元素截图
+    def __init__(self, captcha, element=None):
         self.captcha = captcha
+        self.element = element
 
+        left = self.element.location['x']
+        top = self.element.location['y']
+        right = left + self.element.size['width']
+        bottom = top + self.element.size['height']
+
+        im = Image.open(self.captcha)
+        im.crop((left, top, right, bottom))
+        im.save(self.captcha)
+
+    # 获取验证码字符串
     def store_letters(self):
 
         v = vectorCompare()
         # 获取im 和 letters
         im, letters = self.get_vector_gifs()
         imageset = self.get_imageset()
-
         count = 0
+        crack_str = ""
+
         for letter in letters:
-            #str_time = time.strftime("%y%m%d%H%M%S")
-            #m = hashlib.md5()
             im2 = im.crop((letter[0], 0, letter[1], im.size[1]))
             guess = []
             for img in imageset:
@@ -44,9 +65,11 @@ class build_vector:
                         guess.append((v.relation(y[0], self.get_vectorDict(im2)), x))
 
             guess.sort(reverse=True)
-            print("", guess[0])
+            crack_str += guess[0][1]
             count += 1
+        return crack_str
 
+    # 获取验证码图片RGB
     def get_raw_gif(self):
         im = Image.open(self.captcha)
         im.convert("P")
@@ -59,6 +82,7 @@ class build_vector:
                     im2.putpixel((y, x), 0)
         return im2
 
+    # 获取验证码单个图片矢量图
     def get_vector_gifs(self):
         im = self.get_raw_gif()
 
@@ -96,6 +120,7 @@ class build_vector:
             count += 1
         return d1
 
+    # 根据iconset目录，获取[0-9a-z]中每一个字符的图片矢量信息，然后保存值imageset中
     def get_imageset(self):
         v = vectorCompare()
         iconset = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
